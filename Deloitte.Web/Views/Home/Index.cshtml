@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Deloitte.Model.TaskDetailViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { UserId = ViewBag.UserId })
+</p>
+
+@if (Model.Where(w => w.Checked).Count() > 0)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Checked)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                Last Update
+            </th>
+            <th>
+                Created by
+            </th>
+            <th>Actions</th>
+        </tr>
+
+        @foreach (var item in Model.Where(w => w.Checked))
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Checked)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskHistories.FirstOrDefault().UpdateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Login)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id, UserId = item.CreatedBy }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id, UserId = item.CreatedBy })
+        </td>
+    </tr>
+        }
+    </table>
+}
+
+@if (Model.Where(w => !w.Checked).Count() > 0)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Checked)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                Last Update
+            </th>
+            <th>
+                Created by
+            </th>
+            <th>Actions</th>
+        </tr>
+
+        @foreach (var item in Model.Where(w => !w.Checked))
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Checked)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskHistories.FirstOrDefault().UpdateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Login)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id, UserId = item.CreatedBy }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id, UserId = item.CreatedBy })
+        </td>
+    </tr>
+        }
+    </table>
+}
